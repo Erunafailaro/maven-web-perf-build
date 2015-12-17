@@ -10,7 +10,9 @@
 	<name>Maven web performance builder</name>
 	<url>https://github.com/Erunafailaro/maven-web-perf-build</url>
 
-
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
