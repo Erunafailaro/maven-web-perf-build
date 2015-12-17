@@ -5,8 +5,6 @@ module.exports = function(grunt) {
 	require('jit-grunt')(grunt);
 	var pngquant = require('imagemin-pngquant');
 	var gifsicle = require('imagemin-gifsicle');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 	grunt
 			.initConfig({
@@ -132,31 +130,30 @@ module.exports = function(grunt) {
 							cwd : '<%= app.source %>/img/',
 							src : [ '**/*.{png,gif}' ],
 							dest : '<%= app.dist %>/img/compressed/'
-						} ],
-						jpg: {
-						      options: {
-						        progressive: true
-						      },
-						      files: [
-						        {
-						          // Set to true to enable the following options…
-						          expand: true,
-						          // cwd is 'current working directory'
-						          cwd: '<%= app.source %>/img/',
-						          src: ['**/*.jpg'],
-						          // Could also match cwd. i.e. project-directory/img/
-						          dest: '<%= app.dist %>/img/compressed/',
-						          ext: '.jpg'
-						        }
-						      ]
-						    }
-					// files
+						} ]
+					},
+					jpg : {
+						options : {
+							progressive : true
+						},
+						files : [ {
+							// Set to true to enable the following options…
+							expand : true,
+							// cwd is 'current working directory'
+							cwd : '<%= app.source %>/img/',
+							src : [ '**/*.jpg' ],
+							// Could also match cwd. i.e. project-directory/img/
+							dest : '<%= app.dist %>/img/compressed/',
+							ext : '.jpg'
+						} ]
 					}
+				// files
+
 				// target
 				}, // imagemin
 				watch : {
 					imageopti : {
-						files : [ 'img_src/*.*' ],
+						files : [ '<%= app.source %>/img/*.*' ],
 						tasks : [ 'imagemin' ]
 					}
 				// imageopti
@@ -165,12 +162,16 @@ module.exports = function(grunt) {
 
 			});
 
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
+
 	grunt.registerTask('default', 'watch');
 
-	grunt.registerTask('serve', [ 'clean', 'copy:css', 'sass:server',
-			'autoprefixer', 'uglify:server' ]);
-	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist',
+	grunt.registerTask('serve', [ 'clean', 'copy:css', 'sass:server', 'imagemin',
+			'autoprefixer', 'uglify:server']);
+	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist', 'imagemin',
 			'autoprefixer', 'uglify:dist' ]);
 
 	grunt.registerTask('default', [ 'build' ]);
+	grunt.registerTask('default', [ 'imagemin' ]);
 };
