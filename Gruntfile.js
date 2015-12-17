@@ -89,11 +89,13 @@ module.exports = function(grunt) {
 									'bower_components/angular-route/angular-route.js',
 									'bower_components/angular-animate/angular-animate.js',
 									'bower_components/angular-material/angular-material.js',
-									'bower_components/angular-translate/angular-translate.js' ],
+									'bower_components/angular-translate/angular-translate.js',
+									'bower_components/angular-bootstrap/ui-bootstrap.js' ],
 
 							'<%= app.dist %>/js/app.js' : [
 									'<%= app.source %>/js/app.js',
-									'<%= app.source %>/js/controllers.js' ]
+									'<%= app.source %>/js/controllers.js',
+									'<%= app.source %>/js/services.js' ]
 						}
 					},
 					dist : {
@@ -110,11 +112,13 @@ module.exports = function(grunt) {
 									'bower_components/angular-route/angular-route.js',
 									'bower_components/angular-animate/angular-animate.js',
 									'bower_components/angular-material/angular-material.js',
-									'bower_components/angular-translate/angular-translate.js' ],
+									'bower_components/angular-translate/angular-translate.js',
+									'bower_components/angular-bootstrap/ui-bootstrap.js' ],
 
 							'<%= app.dist %>/js/app.js' : [
 									'<%= app.source %>/js/app.js',
-									'<%= app.source %>/js/controllers.js' ]
+									'<%= app.source %>/js/controllers.js',
+									'<%= app.source %>/js/services.js' ]
 						}
 					}
 				},
@@ -157,21 +161,32 @@ module.exports = function(grunt) {
 						tasks : [ 'imagemin' ]
 					}
 				// imageopti
+				},
+				// watch
+				serve : {// serve
+					options : {
+						port : 9000,
+						'path' : 'src/main/webapp'
+					}
 				}
-			// watch
+			// serve
 
 			});
 
+	grunt.loadNpmTasks('grunt-serve');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 	grunt.registerTask('default', 'watch');
-
-	grunt.registerTask('serve', [ 'clean', 'copy:css', 'sass:server', 'imagemin',
-			'autoprefixer', 'uglify:server']);
-	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist', 'imagemin',
-			'autoprefixer', 'uglify:dist' ]);
-
 	grunt.registerTask('default', [ 'build' ]);
 	grunt.registerTask('default', [ 'imagemin' ]);
+	grunt.registerTask('default', [ 'serve' ]);
+
+	grunt.registerTask('server', [ 'clean', 'copy:css', 'sass:server',
+			'imagemin', 'autoprefixer', 'uglify:server' ]);
+	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist', 'imagemin',
+			'autoprefixer', 'uglify:dist' ]);
+	
+
+
 };
