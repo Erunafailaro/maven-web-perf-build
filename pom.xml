@@ -21,8 +21,6 @@
 					<srcdir>${basedir}/src/main/sourceapp</srcdir>
 					<outputdir>${basedir}/src/main/webapp</outputdir>
 					<triggerfiles>
-						<triggerfile>Gruntfile.js</triggerfile>
-						<triggerfile>package.json</triggerfile>
 					</triggerfiles>
 					<arguments>${target.environment}</arguments>
 				</configuration>
@@ -46,16 +44,6 @@
 						</goals>
 						<configuration>
 							<arguments>install</arguments>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>npm install image optimizers</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install imagemin-pngquant grunt-contrib-imagemin imagemin-gifsicle</arguments>
 						</configuration>
 					</execution>
 
