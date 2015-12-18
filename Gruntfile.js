@@ -1,6 +1,5 @@
-'use strict';
-
 module.exports = function(grunt) {
+	'use strict';
 	require('time-grunt')(grunt);
 	require('jit-grunt')(grunt);
 	var pngquant = require('imagemin-pngquant');
@@ -168,25 +167,28 @@ module.exports = function(grunt) {
 						port : 9000,
 						'path' : 'src/main/webapp'
 					}
+				},
+				// serve
+				jshint : {
+					all : [ 'Gruntfile.js', 'src/main/sourceapp/**/*.js',
+							'src/test/js/**/*.js' ],
+					options : {
+						laxbreak : true
+					}
 				}
-			// serve
 
 			});
 
 	grunt.loadNpmTasks('grunt-serve');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
-	grunt.registerTask('default', 'watch');
-	grunt.registerTask('default', [ 'build' ]);
-	grunt.registerTask('default', [ 'imagemin' ]);
-	grunt.registerTask('default', [ 'serve' ]);
+	grunt.registerTask('default', [ 'build', 'serve' ]);
 
 	grunt.registerTask('server', [ 'clean', 'copy:css', 'sass:server',
-			'imagemin', 'autoprefixer', 'uglify:server' ]);
+			'imagemin', 'autoprefixer', 'jshint', 'uglify:server' ]);
 	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist', 'imagemin',
-			'autoprefixer', 'uglify:dist' ]);
-	
-
+			'autoprefixer', 'jshint', 'uglify:dist' ]);
 
 };
