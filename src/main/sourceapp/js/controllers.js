@@ -1,24 +1,26 @@
-angular.module('myModule.controllers', []).controller('driversController',
-		function($scope) {
-			$scope.driversList = [ {
-				Driver : {
-					givenName : 'Sebastian',
-					familyName : 'Vettel'
-				},
-				points : 322,
-				nationality : "German",
-				Constructors : [ {
-					name : "Red Bull"
-				} ]
-			}, {
-				Driver : {
-					givenName : 'Fernando',
-					familyName : 'Alonso'
-				},
-				points : 207,
-				nationality : "Spanish",
-				Constructors : [ {
-					name : "Ferrari"
-				} ]
-			} ];
-		});
+angular.module('ui.bootstrap').controller('AccordionDemoCtrl', function ($scope) {
+  $scope.oneAtATime = true;
+
+  $scope.groups = [
+    {
+      title: 'Dynamic Group Header - 1',
+      content: 'Dynamic Group Body - 1'
+    },
+    {
+      title: 'Dynamic Group Header - 2',
+      content: 'Dynamic Group Body - 2'
+    }
+  ];
+
+  $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+
+  $scope.addItem = function() {
+    var newItemNo = $scope.items.length + 1;
+    $scope.items.push('Item ' + newItemNo);
+  };
+
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+});
