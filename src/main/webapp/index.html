@@ -3,15 +3,13 @@
 <html>
 <head>
 <title>F-1 Feeder</title>
-	<link rel="stylesheet" href="bower_components/angular/angular-csp.css" />
-	<link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
-	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-	<link rel="stylesheet" href="bower_components/angular/" />
+<link rel="stylesheet" href="css/lib.css" />
 </head>
 
-<body ng-app="myModule" >
-<div ng-controller="AccordionDemoCtrl">
-  <script type="text/ng-template" id="group-template.html">
+<body ng-app="myModule" role="document">
+	<div class="container theme-showcase" role="main">
+		<div ng-controller="AccordionDemoCtrl">
+			<script type="text/ng-template" id="group-template.html">
     <div class="panel {{panelClass || 'panel-default'}}">
       <div class="panel-heading">
         <h4 class="panel-title" style="color:#fa39c3">
@@ -25,44 +23,42 @@
     </div>
   </script>
 
-  <p>
-    <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
-    <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
-  </p>
+			<p>
+				<button type="button" class="btn btn-default btn-sm"
+					ng-click="status.open = !status.open">Toggle last panel</button>
+				<button type="button" class="btn btn-default btn-sm"
+					ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable
+					/ Disable first panel</button>
+			</p>
 
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" ng-model="oneAtATime">
-      Open only one at a time
-    </label>
-  </div>
-  <uib-accordion close-others="oneAtATime">
-    <uib-accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-      This content is straight in the template.
-    </uib-accordion-group>
-    <uib-accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-      {{group.content}}
-    </uib-accordion-group>
-    <uib-accordion-group heading="Dynamic Body Content">
-      <p>The body of the uib-accordion group grows to fit the contents</p>
-      <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-      <div ng-repeat="item in items">{{item}}</div>
-    </uib-accordion-group>
-    <uib-accordion-group heading="Custom template" template-url="group-template.html">
-      Hello
-    </uib-accordion-group>
-    <uib-accordion-group heading="Delete account" panel-class="panel-danger">
-      <p>Please, to delete your account, click the button below</p>
-      <button class="btn btn-danger">Delete</button>
-    </uib-accordion-group>
-    <uib-accordion-group is-open="status.open">
-      <uib-accordion-heading>
-        I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-      </uib-accordion-heading>
-      This is just some content to illustrate fancy headings.
-    </uib-accordion-group>
-  </uib-accordion>
-</div>	<!-- 
+			<div class="checkbox">
+				<label> <input type="checkbox" ng-model="oneAtATime">
+					Open only one at a time
+				</label>
+			</div>
+			<uib-accordion close-others="oneAtATime"> <uib-accordion-group
+				heading="Static Header, initially expanded"
+				is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+			This content is straight in the template. </uib-accordion-group> <uib-accordion-group
+				heading="{{group.title}}" ng-repeat="group in groups">
+			{{group.content}} </uib-accordion-group> <uib-accordion-group
+				heading="Dynamic Body Content">
+			<p>The body of the uib-accordion group grows to fit the contents</p>
+			<button type="button" class="btn btn-default btn-sm"
+				ng-click="addItem()">Add Item</button>
+			<div ng-repeat="item in items">{{item}}</div>
+			</uib-accordion-group> <uib-accordion-group heading="Custom template"
+				template-url="group-template.html"> Hello </uib-accordion-group> <uib-accordion-group
+				heading="Delete account" panel-class="panel-danger">
+			<p>Please, to delete your account, click the button below</p>
+			<button class="btn btn-danger">Delete</button>
+			</uib-accordion-group> <uib-accordion-group is-open="status.open"> <uib-accordion-heading>
+			I can have markup, too! <i class="pull-right glyphicon"
+				ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+			</uib-accordion-heading> This is just some content to illustrate fancy headings. </uib-accordion-group> </uib-accordion>
+		</div>
+	</div>
+	<!-- 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>

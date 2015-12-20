@@ -9,31 +9,35 @@ module.exports = function(grunt) {
 			.initConfig({
 				app : {
 					source : 'src/main/sourceapp',
-					dist : 'src/main/webapp'
+					dist : 'src/main/webapp',
+					bower_comp : 'bower_components'
 				},
 				clean : {
 					dist : [ '.tmp', '<%= app.dist %>/css',
 							'<%= app.dist %>/js' ]
 				},
-				copy : {
-					css : {
-						files : [ {
-							expand : true,
-							cwd : 'bower_components/angular-material/',
-							src : 'angular-material.css',
-							dest : '.tmp/scss/',
-							rename : function(dest, src) {
-								return dest + "_"
-										+ src.substring(0, src.indexOf('.'))
-										+ '.scss';
-							}
-						} ]
+				cssmin : {
+					options : {
+						shorthandCompacting : false,
+						roundingPrecision : -1
+					},
+					target : {
+						files : {
+							'<%= app.dist %>/css/lib.css' : [
+									'<%= app.bower_comp %>/angular/angular.css',
+									'<%= app.bower_comp %>/angular-bootstrap/ui-bootstrap-csp.css',
+									'<%= app.bower_comp %>/angular-material/angular-material.css',
+									'<%= app.bower_comp %>/bootstrap/dist/css/bootstrap.css',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/css/ripples.css',
+									'<%= app.bower_comp %>/angular-material/modules/css/angular-material-layout.css', ]
+						}
 					}
 				},
 				sass : {
 					options : {
 						includePaths : [
-								'bower_components/bootstrap-sass/assets/stylesheets',
+								'<%= app.bower_comp %>/bootstrap-sass/assets/stylesheets',
 								'.tmp/scss' ]
 					},
 					server : {
@@ -82,14 +86,17 @@ module.exports = function(grunt) {
 						},
 						files : {
 							'<%= app.dist %>/js/scripts.js' : [
-									'bower_components/jquery/dist/jquery.js',
-									'bower_components/angular/angular.js',
-									'bower_components/angular-resource/angular-resource.js',
-									'bower_components/angular-route/angular-route.js',
-									'bower_components/angular-animate/angular-animate.js',
-									'bower_components/angular-material/angular-material.js',
-									'bower_components/angular-translate/angular-translate.js',
-									'bower_components/angular-bootstrap/ui-bootstrap.js' ],
+									'<%= app.bower_comp %>/jquery/dist/jquery.js',
+									'<%= app.bower_comp %>/angular/angular.js',
+									'<%= app.bower_comp %>/angular-resource/angular-resource.js',
+									'<%= app.bower_comp %>/angular-route/angular-route.js',
+									'<%= app.bower_comp %>/angular-animate/angular-animate.js',
+									'<%= app.bower_comp %>/angular-material/angular-material.js',
+									'<%= app.bower_comp %>/angular-translate/angular-translate.js',
+									'<%= app.bower_comp %>/bootstrap/dist/js/bootstrap.js',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/js/material.js',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/js/ripples.js',
+									'<%= app.bower_comp %>/angular-bootstrap/ui-bootstrap.js' ],
 
 							'<%= app.dist %>/js/app.js' : [
 									'<%= app.source %>/js/app.js',
@@ -105,14 +112,17 @@ module.exports = function(grunt) {
 						},
 						files : {
 							'<%= app.dist %>/js/scripts.js' : [
-									'bower_components/jquery/dist/jquery.js',
-									'bower_components/angular/angular.js',
-									'bower_components/angular-resource/angular-resource.js',
-									'bower_components/angular-route/angular-route.js',
-									'bower_components/angular-animate/angular-animate.js',
-									'bower_components/angular-material/angular-material.js',
-									'bower_components/angular-translate/angular-translate.js',
-									'bower_components/angular-bootstrap/ui-bootstrap.js' ],
+									'<%= app.bower_comp %>/jquery/dist/jquery.js',
+									'<%= app.bower_comp %>/angular/angular.js',
+									'<%= app.bower_comp %>/angular-resource/angular-resource.js',
+									'<%= app.bower_comp %>/angular-route/angular-route.js',
+									'<%= app.bower_comp %>/angular-animate/angular-animate.js',
+									'<%= app.bower_comp %>/angular-material/angular-material.js',
+									'<%= app.bower_comp %>/angular-translate/angular-translate.js',
+									'<%= app.bower_comp %>/bootstrap/dist/js/bootstrap.js',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/js/material.js',
+									'<%= app.bower_comp %>/bootstrap-material-design/dist/js/ripples.js',
+									'<%= app.bower_comp %>/angular-bootstrap/ui-bootstrap.js' ],
 
 							'<%= app.dist %>/js/app.js' : [
 									'<%= app.source %>/js/app.js',
@@ -120,6 +130,15 @@ module.exports = function(grunt) {
 									'<%= app.source %>/js/services.js' ]
 						}
 					}
+				},
+				copy : {
+					main : {
+						cwd : '<%= app.bower_comp %>/bootstrap/dist/fonts/',
+						src:['**'],
+						dest : '<%= app.dist %>/fonts/',
+						expand:true,
+						flatten:true
+					},
 				},
 				imagemin : {
 					target : {
@@ -183,12 +202,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	grunt.registerTask('default', [ 'build', 'serve' ]);
 
-	grunt.registerTask('server', [ 'clean', 'copy:css', 'sass:server',
+	grunt.registerTask('server', [ 'clean', 'cssmin', 'sass:server',
 			'imagemin', 'autoprefixer', 'jshint', 'uglify:server' ]);
-	grunt.registerTask('build', [ 'clean', 'copy:css', 'sass:dist', 'imagemin',
+
+	grunt.registerTask('build', [ 'clean', 'cssmin', 'sass:dist', 'imagemin',
 			'autoprefixer', 'jshint', 'uglify:dist' ]);
 
 };

@@ -16,3 +16,4 @@ A maven pom.xml to do common web performance optimization tasks.
 0. https://github.com/martin-g/blogs/blob/master/wicket-nodejs-build/pom.xml#L116
 0. https://github.com/eirslett/frontend-maven-plugin/wiki
 0. http://o.zasadnyy.com/blog/maven-grunt-bower/
+0. http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app
